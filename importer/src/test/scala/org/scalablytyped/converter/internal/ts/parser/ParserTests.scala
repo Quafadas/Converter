@@ -3037,7 +3037,7 @@ export {};
               ReadonlyModifier.Noop,
               TsIdentSimple("K"),
               TsTypeIntersect(IArray(TsTypeKeyOf(T), TsTypeRef.string)),
-              Some(TsLiteral.Str("${Prefix}.${K}")),
+              Some(TsTypeLiteral(TsLiteral.Str("${Prefix}.${K}"))),
               OptionalModifier.Optionalize,
               TsTypeLookup(T, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty)),
             ),
@@ -3056,6 +3056,46 @@ export {};
         NoComments,
         TsIdentSimple("hasArr"),
         Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Array"))), IArray(T))),
+      ),
+    )
+  }
+
+  test("mapped indices in type mappings can be other types than just literal strings") {
+    val content = """type ArrayKeys<T> = keyof { [P in keyof T as T[P] extends any[] ? P : never]: P }""".stripMargin
+
+    shouldParseAs(content, TsParser.tsDeclTypeAlias)(
+      TsDeclTypeAlias(
+        NoComments,
+        false,
+        TsIdentSimple("ArrayKeys"),
+        IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
+        TsTypeKeyOf(
+          TsTypeObject(
+            NoComments,
+            IArray(
+              TsMemberTypeMapped(
+                NoComments,
+                TsProtectionLevel.Default,
+                ReadonlyModifier.Noop,
+                TsIdentSimple("P"),
+                TsTypeKeyOf(T),
+                Some(
+                  TsTypeConditional(
+                    TsTypeExtends(
+                      TsTypeLookup(T, TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("P"))), IArray())),
+                      TsTypeRef(NoComments, TsQIdent.Array, IArray(TsTypeRef.any)),
+                    ),
+                    TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("P"))), IArray()),
+                    TsTypeRef.never,
+                  ),
+                ),
+                Noop,
+                TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("P"))), IArray()),
+              ),
+            ),
+          ),
+        ),
+        CodePath.NoPath,
       ),
     )
   }
