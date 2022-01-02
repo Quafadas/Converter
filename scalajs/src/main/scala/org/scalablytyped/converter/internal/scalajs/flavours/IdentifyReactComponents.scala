@@ -266,10 +266,11 @@ class IdentifyReactComponents(
 
       val normal = c match {
         case _: PackageTree => Empty
-        case x: ModuleTree  => x.parents.flatMap {
-          case TypeRef.Intersection(types, _) => types
-          case other                          => IArray(other)
-        }
+        case x: ModuleTree =>
+          x.parents.flatMap {
+            case TypeRef.Intersection(types, _) => types
+            case other                          => IArray(other)
+          }
       }
 
       fromNamespaced ++ normal
@@ -289,7 +290,7 @@ class IdentifyReactComponents(
     val separated = separateContainer(c, scope)
 
     val componentOpt: Option[Component] = {
-      def fromParents = separated.parentRefs.firstDefined{tpe =>
+      def fromParents = separated.parentRefs.firstDefined { tpe =>
         val asField = FieldTree(
           annotations = c.annotations,
           level       = ProtectionLevel.Public,

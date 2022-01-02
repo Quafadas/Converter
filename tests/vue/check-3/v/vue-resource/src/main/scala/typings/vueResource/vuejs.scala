@@ -3,9 +3,8 @@ package typings.vueResource
 import org.scalablytyped.runtime.StringDictionary
 import typings.std.Blob
 import typings.vueResource.anon.Call
-import typings.vueResource.anon.HttpOptionsrootstring
+import typings.vueResource.anon.HttpOptionsDictkey
 import typings.vueResource.anon.Method
-import typings.vueResource.anon.headersHttpHeadersundefin
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -14,7 +13,7 @@ object vuejs {
   
   trait ComponentOption extends StObject {
     
-    var http: js.UndefOr[headersHttpHeadersundefin] = js.undefined
+    var http: js.UndefOr[HttpOptionsDictkey] = js.undefined
   }
   object ComponentOption {
     
@@ -25,7 +24,7 @@ object vuejs {
     
     extension [Self <: ComponentOption](x: Self) {
       
-      inline def setHttp(value: headersHttpHeadersundefin): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
+      inline def setHttp(value: HttpOptionsDictkey): Self = StObject.set(x, "http", value.asInstanceOf[js.Any])
       
       inline def setHttpUndefined: Self = StObject.set(x, "http", js.undefined)
     }
@@ -264,7 +263,7 @@ object vuejs {
     @JSName("jsonp")
     var jsonp_Original: http
     
-    var options: HttpOptionsrootstring
+    var options: typings.vueResource.anon.HttpOptions
     
     def patch(url: String): js.Thenable[HttpResponse]
     def patch(url: String, data: Any): js.Thenable[HttpResponse]
@@ -298,7 +297,7 @@ object vuejs {
       headers: HttpHeaders,
       interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]],
       jsonp: http,
-      options: HttpOptionsrootstring,
+      options: typings.vueResource.anon.HttpOptions,
       patch: http,
       post: http,
       put: http
@@ -321,7 +320,7 @@ object vuejs {
       
       inline def setJsonp(value: http): Self = StObject.set(x, "jsonp", value.asInstanceOf[js.Any])
       
-      inline def setOptions(value: HttpOptionsrootstring): Self = StObject.set(x, "options", value.asInstanceOf[js.Any])
+      inline def setOptions(value: typings.vueResource.anon.HttpOptions): Self = StObject.set(x, "options", value.asInstanceOf[js.Any])
       
       inline def setPatch(value: http): Self = StObject.set(x, "patch", value.asInstanceOf[js.Any])
       
