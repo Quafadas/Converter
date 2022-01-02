@@ -34,22 +34,25 @@ object UpToDateExternals {
     /* graalvm bundles a botched version which fails with SOE */
     val npmCommand = sys.env.get("NVM_BIN") match {
       case None       => List("npm")
-      case Some(path) => List(s"$path/node", "--stack-size=4096", s"$path/npm")
+      case Some(path) => List(s"$path/nvm-exec", "npm")
     }
 
     if (missingExternals.isEmpty) logger.warn(s"All external libraries present in $nodeModulesPath")
     else {
       logger.warn(s"Adding ${missingExternals.size} missing libraries to $nodeModulesPath")
       missingExternals.toSeq.map(_.value).sorted.grouped(100).foreach { es =>
-        cmd.runVerbose(
-          npmCommand,
-          "add",
-          "--ignore-scripts",
-          "--no-cache",
-          "--no-audit",
-          "--no-bin-links",
-          es,
-        )(folder)
+        cmd
+          .env("NODE_VERSION", "14")
+          .runVerbose(
+            npmCommand,
+            "add",
+            "--ignore-scripts",
+            "--no-cache",
+            "--no-audit",
+            "--no-bin-links",
+            "--stack-size=4096",
+            es,
+          )(folder)
       }
     }
 
@@ -62,27 +65,33 @@ object UpToDateExternals {
         case _                                           => ()
       }
 
-      cmd.runVerbose(
-        npmCommand,
-        'upgrade,
-        "--latest",
-        "--no-cache",
-        "--ignore-scripts",
-        "--no-audit",
-        "--no-bin-links",
-      )(folder)
+      cmd
+        .env("NODE_VERSION", "14")
+        .runVerbose(
+          npmCommand,
+          'upgrade,
+          "--latest",
+          "--no-cache",
+          "--ignore-scripts",
+          "--no-audit",
+          "--no-bin-links",
+          "--stack-size=4096",
+        )(folder)
     }
 
     if (missingExternals.exists(_.value.startsWith("@material-ui")) || !offline) {
-      cmd.runVerbose(
-        npmCommand,
-        "add",
-        "@material-ui/core@3.9.3",
-        "--no-cache",
-        "--ignore-scripts",
-        "--no-audit",
-        "--no-bin-links",
-      )(folder)
+      cmd
+        .env("NODE_VERSION", "14")
+        .runVerbose(
+          npmCommand,
+          "add",
+          "@material-ui/core@3.9.3",
+          "--no-cache",
+          "--ignore-scripts",
+          "--no-audit",
+          "--no-bin-links",
+          "--stack-size=4096",
+        )(folder)
     }
 
     if (conserveSpace && files.exists(folder)) {

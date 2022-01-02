@@ -4,9 +4,11 @@ package importer
 import ammonite.ops.{Command, CommandResult, Shellout, ShelloutException}
 import com.olvind.logging.Logger
 
-class Cmd(logger: Logger[_], maxLengthOpt: Option[Int]) {
-  val runVerbose = Command(Vector.empty, Map.empty, executeStream(verbose = true))
-  val run        = Command(Vector.empty, Map.empty, executeStream(verbose = false))
+class Cmd(logger: Logger[_], maxLengthOpt: Option[Int], env: Map[String, String] = Map.empty) {
+  def env(key: String, value: String): Cmd = new Cmd(logger, maxLengthOpt, env.updated(key, value))
+
+  val runVerbose = Command(Vector.empty, env, executeStream(verbose = true))
+  val run        = Command(Vector.empty, env, executeStream(verbose = false))
 
   private val MaxLength = maxLengthOpt.getOrElse(Int.MaxValue)
 
