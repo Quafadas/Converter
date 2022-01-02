@@ -1,6 +1,5 @@
 package typingsSlinky.react.mod
 
-import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
 import org.scalablytyped.runtime.TopLevel
 import org.scalajs.dom.Element
@@ -538,7 +537,7 @@ js.Function2[/* nextProps */ P, /* prevState */ S, Partial[S] | Null]
 // tslint:disable-next-line:no-empty-interface
 type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
 
-type JSXElementConstructor[P] = (js.Function1[/* props */ P, slinky.core.facade.ReactElement | Null]) | (Instantiable1[/* props */ P, ReactComponentClass[P]])
+type JSXElementConstructor[P] = js.Function1[/* props */ P, slinky.core.facade.ReactElement | Null]
 
 type Key = String | Double
 

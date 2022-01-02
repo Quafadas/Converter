@@ -6,7 +6,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="org.scalablytyped.converter.Main" />
     <module name="importer" />
-    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline -dontCleanProject -forceCommit -demoSet2 -flavourSlinky -useScalaJsDomTypes @mui/material" />
+    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline -dontCleanProject -forceCommit -demoSet2 -flavourSlinky -useScalaJsDomTypes @mui/material @mui/icons-material" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.scalablytyped.converter.*" />
